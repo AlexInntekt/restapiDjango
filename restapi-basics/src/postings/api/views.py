@@ -2,6 +2,7 @@
 from django.db.models import Q
 from rest_framework import generics, mixins
 from postings.models import BlogPost
+from .permissions import IsOwnerOrReadOnly
 from .serializers import BlogPostSerializer
 
 class BlogPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
@@ -30,6 +31,7 @@ class BlogPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
 class BlogPostRudView(generics.RetrieveUpdateDestroyAPIView): # detailview
     lookup_field         = 'pk' # use slug / id   # url(?P<pk>d+)
     serializer_class     = BlogPostSerializer
+    permission_classes   = [IsOwnerOrReadOnly]
     #queryset             = BlogPost.objects.all()
 	 
     def get_queryset(self):
