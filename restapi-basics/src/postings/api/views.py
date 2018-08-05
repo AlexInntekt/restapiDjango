@@ -27,6 +27,9 @@ class BlogPostAPIView(mixins.CreateModelMixin, generics.ListAPIView):
 		
     def patch(self, request, *args, **kwargs):
 	    return self.update(request, *args,  **kwargs)
+		
+    def get_serializer_context(self, *args, **kwargs):
+       return {"request": self.request}	
  
 class BlogPostRudView(generics.RetrieveUpdateDestroyAPIView): # detailview
     lookup_field         = 'pk' # use slug / id   # url(?P<pk>d+)
@@ -37,10 +40,18 @@ class BlogPostRudView(generics.RetrieveUpdateDestroyAPIView): # detailview
     def get_queryset(self):
        return BlogPost.objects.all()
 
+  
+    def get_serializer_context(self, *args, **kwargs):
+       return {"request": self.request}	
+	   
      #def get_object(self):
      #   pk = self.kwargs.get("pk")
      #   return BlogPost.objects.all()	 
 	 
+	 
+     
+	 
+'''	
     def validate_title(self, value):
       qs = BlogPost.objects.filter(title_iexact=value) 
       if self.instance:  
@@ -48,7 +59,7 @@ class BlogPostRudView(generics.RetrieveUpdateDestroyAPIView): # detailview
       if qs.exists():  
         raise serializers.ValidationError("The title must be unique")   
       return value
-		
+'''		
 	 
 	 
 	 

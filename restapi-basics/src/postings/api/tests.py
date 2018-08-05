@@ -19,6 +19,7 @@ class BlogPostAPITestCase(APITestCase):
         post_count = BlogPost.objects.count()
         self.assertEqual(post_count, 1)
 		
+    
 		
 		
 		
