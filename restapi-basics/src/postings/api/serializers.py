@@ -23,12 +23,13 @@ class BlogPostSerializer(serializers.ModelSerializer):
        return obj.get_api_url(request=request)
 
     def validate_title(self, value):
-        qs = BlogPost.objects.filter(title_iexact=value)
+        qs = BlogPost.objects.filter(title__iexact=value)
         if self.instance:
           qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():
           raise serializers.ValidateError("This title has already been used.")
         return value
+
 
 
 

@@ -51,15 +51,7 @@ class BlogPostRudView(generics.RetrieveUpdateDestroyAPIView): # detailview
 	 
      
 	 
-'''	
-    def validate_title(self, value):
-      qs = BlogPost.objects.filter(title_iexact=value) 
-      if self.instance:  
-        qs = qs.exclude(pk=self.instance.pk)  
-      if qs.exists():  
-        raise serializers.ValidationError("The title must be unique")   
-      return value
-'''		
+
 	 
 	 
 	 
